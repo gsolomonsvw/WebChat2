@@ -5,34 +5,11 @@
 <title>Chat - Customer Module</title>
 <link type="text/css" rel="stylesheet" href="style.css" />
 </head>
- 
-<?
-session_start();
- 
-function loginForm(){
-    echo'
-    <div id="loginform">
-    <form action="index.php" method="post">
-        <p>Please enter your name to continue:</p>
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" />
-        <input type="submit" name="enter" id="enter" value="Enter" />
-    </form>
-    </div>
-    ';
-}
- 
-if(isset($_POST['enter'])){
-    if($_POST['name'] != ""){
-        $_SESSION['name'] = stripslashes(htmlspecialchars($_POST['name']));
-    }
-    else{
-        echo '<span class="error">Please type in a name</span>';
-    }
-}
-?>
+
 
 <?php
+session_start();
+
     if(!isset($_SESSION['name'])){
         loginForm();
     }
@@ -45,17 +22,17 @@ if(isset($_POST['enter'])){
                     <div style="clear:both"></div>
                 </div> 
      
-    <div id="chatbox">
-        <?php
-            if(file_exists("log.html") && filesize("log.html") > 0)
-            {
-                $handle = fopen("log.html", "r");
-                $contents = fread($handle, filesize("log.html"));
-                fclose($handle);
-                echo $contents;
-            }
-        ?>
-    </div>
+                <div id="chatbox">
+                    <?php
+                        if(file_exists("log.html") && filesize("log.html") > 0)
+                        {
+                            $handle = fopen("log.html", "r");
+                            $contents = fread($handle, filesize("log.html"));
+                            fclose($handle);
+                            echo $contents;
+                        }
+                    ?>
+                </div>
      
      
                 <form name="message" action="">
@@ -107,6 +84,7 @@ if(isset($_POST['enter'])){
                     setInterval (loadLog, 2500);    //Reload file every 2500 ms or x
                 }
             });
+
             </script>
         <?php
         }
@@ -116,6 +94,29 @@ if(isset($_POST['enter'])){
 <script type="text/javascript">
 // jQuery Document
 $(document).ready(function(){
+    
+    function loginForm(){
+    echo'
+    <div id="loginform">
+    <form action="index.php" method="post">
+        <p>Please enter your name to continue:</p>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
+        <input type="submit" name="enter" id="enter" value="Enter" />
+    </form>
+    </div>
+    ';}
+ 
+    if(isset($_POST['enter'])){
+        if($_POST['name'] != ""){
+            $_SESSION['name'] = stripslashes(htmlspecialchars($_POST['name']));
+        }
+        else{
+            echo '<span class="error">Please type in a name</span>';
+        }
+    }
+
+
     //If user wants to end session
     $("#exit").click(function(){
         var exit = confirm("Are you sure you want to end the session?");
