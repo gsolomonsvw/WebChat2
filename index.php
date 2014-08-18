@@ -70,7 +70,7 @@ if(isset($_GET['logout'])){
     session_destroy();
     header("Location: index.php"); //Redirect the user
 }
-
+?>
 //If user submits the form
     $("#submitmsg").click(function(){   
         var clientmsg = $("#usermsg").val();
@@ -78,10 +78,8 @@ if(isset($_GET['logout'])){
         $("#usermsg").attr("value", "");
         return false;
     });
-?>
 
-});
-    //Load the file containing the chat log
+//Load the file containing the chat log
     function loadLog(){     
         var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
         $.ajax({
@@ -98,6 +96,8 @@ if(isset($_GET['logout'])){
             },
         });
     }
+});
+    
 </script>
 </body>
 </html>
